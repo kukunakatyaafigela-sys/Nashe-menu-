@@ -222,7 +222,7 @@ async function connectHousehold(accessCode) {
     console.error('Ошибка подключения:', error);
     cloudReady = false;
     applyingCloudState = false;
-    status.textContent = 'Не удалось подключиться. Проверь код доступа и настройки Supabase.';
+    status.textContent = 'Ошибка: ' + (error?.message || String(error));
   } finally {
     if (button) button.disabled = false;
   }
