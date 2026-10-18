@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Наше меню — планировщик питания</title>
+<style>
+:root{--bg:#f6f7f2;--card:#fff;--ink:#25352e;--muted:#68766e;--line:#e1e7df;--accent:#477b60;--soft:#eaf2eb;--gold:#d59c27;--danger:#b44e45;--shadow:0 8px 24px #213b2a0a}
+*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}.app,.layout,.layout>* ,.panel,.card{min-width:0;max-width:100%}button,input,select{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:9px 13px}button:hover{border-color:#a8c0ad}button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}button.ghost{background:transparent}button.danger{color:var(--danger)}button:disabled{opacity:.45;cursor:not-allowed}input,select{border:1px solid var(--line);border-radius:10px;padding:10px;background:#fff;color:var(--ink);width:100%;min-width:0}input[type=checkbox]{width:auto;accent-color:var(--accent)}label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.app{max-width:1250px;margin:auto;padding:22px}.hero{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:20px}.eyebrow{font-size:12px;color:var(--accent);font-weight:750;text-transform:uppercase;letter-spacing:.12em}.hero h1{font-size:clamp(25px,4vw,36px);line-height:1.1;margin:5px 0}.sub{color:var(--muted);margin:0}.hero-icon{font-size:38px;background:var(--soft);border-radius:20px;padding:15px}.tabs{display:flex;gap:7px;background:#e9eee7;padding:6px;border-radius:16px;margin-bottom:20px;overflow:auto}.tab{flex:1;white-space:nowrap;border:0;background:transparent}.tab.active{background:#fff;box-shadow:var(--shadow);font-weight:700}.tab span{margin-right:6px}.panel{display:none}.panel.active{display:block}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:4px 0 16px}.section-head h2{margin:0 0 4px;font-size:22px}.muted{color:var(--muted)}.small{font-size:12px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.week-grid{display:grid;grid-template-columns:repeat(7,minmax(150px,1fr));gap:10px;overflow-x:auto;padding-bottom:8px}#weekGrid{grid-template-columns:repeat(2,minmax(165px,1fr))}.day{min-width:150px}.day h3{font-size:14px;margin:0 0 10px;padding:8px 10px;background:var(--soft);border-radius:10px}.meal{border:1px solid var(--line);border-radius:12px;padding:9px;margin-bottom:9px}.meal-title{font-size:12px;font-weight:750;margin-bottom:7px}.zone{padding:7px 0;border-top:1px dashed var(--line)}.zone:first-of-type{border-top:0}.zone-label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.pick{width:100%;padding:7px 8px;text-align:left;font-size:12px;border-style:dashed;background:#fbfcfa}.chosen{font-size:12px;font-weight:650;overflow-wrap:anywhere}.chosen-line{display:flex;align-items:flex-start;gap:5px;justify-content:space-between}.tiny{padding:3px 6px;font-size:11px;border-radius:7px}.star{border:0;background:transparent;padding:0 3px;color:#b4b9af;font-size:19px;line-height:1}.star.on{color:var(--gold)}.chip{display:inline-flex;background:var(--soft);border-radius:99px;padding:3px 8px;font-size:11px;color:#43634d;margin:2px 3px 2px 0}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.toolbar>*{width:auto}.toolbar input{flex:1;min-width:160px}.recipe-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}.recipe-card{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff}.recipe-card h3{font-size:16px;margin:0 0 6px}.recipe-top{display:flex;justify-content:space-between;gap:8px}.recipe-actions{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}.recipe-actions button{font-size:12px;padding:7px 9px}.ingredients{font-size:12px;color:var(--muted);margin-top:8px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field.full{grid-column:1/-1}.category-options{display:flex;gap:8px;flex-wrap:wrap}.category-options label{display:flex;align-items:center;gap:6px;padding:8px 10px;background:#f6f8f4;border-radius:10px;margin:0;color:var(--ink);font-size:13px}.ing-row{display:grid;grid-template-columns:minmax(100px,1fr) 75px 125px 34px;gap:7px;align-items:end;margin-bottom:8px}.ing-row button{padding:8px}.form-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}.empty{border:1px dashed #cdd8cc;padding:28px 15px;text-align:center;border-radius:14px;color:var(--muted)}.shopping-list{display:grid;gap:8px}.shopping-item{display:flex;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}.shopping-item .product{flex:1}.shopping-item.done .product{text-decoration:line-through;color:var(--muted)}.quantity{font-weight:750;white-space:nowrap}.inline-add{display:grid;grid-template-columns:minmax(0,1fr) 90px 125px auto;gap:8px;margin-top:14px}.note{padding:12px 14px;border-radius:12px;background:#f1f4ec;color:var(--muted);font-size:12px;margin-top:14px}.modal-backdrop{position:fixed;inset:0;background:#17261eb0;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal-backdrop.open{display:flex}.modal{background:#fff;border-radius:18px;padding:18px;width:min(600px,100%);max-height:90vh;overflow:auto}.modal h2{margin-top:0}.modal-results{display:grid;gap:7px}.modal-recipe{display:flex;align-items:center;justify-content:space-between;gap:10px;text-align:left}.modal-recipe strong{display:block}.modal-recipe small{color:var(--muted)}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#243d2d;color:white;padding:11px 16px;border-radius:12px;display:none;z-index:20;max-width:90vw}.footer{color:var(--muted);font-size:12px;text-align:center;margin:20px 0 4px}
+@media(max-width:850px){.app{padding:14px}.layout{grid-template-columns:1fr}.hero-icon{display:none}.week-grid{grid-template-columns:repeat(7,minmax(165px,1fr))}#weekGrid{grid-template-columns:repeat(2,minmax(165px,1fr))}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.inline-add{grid-template-columns:1fr 90px 120px}.inline-add button{grid-column:1/-1}.section-head{align-items:center}}
+@media(max-width:430px){.tab span{display:block;margin:0 0 3px}.tabs{gap:2px}.tab{font-size:12px;padding:8px 5px}.ing-row{grid-template-columns:minmax(80px,1fr) 65px 100px 30px;gap:4px}.card{padding:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hero">
+    <div><div class="eyebrow">Планируем вместе</div><h1>Наше меню</h1><p class="sub">Меню на неделю, любимые блюда и список покупок — в одном месте.</p></div>
+    <div class="hero-icon" aria-hidden="true">🥦</div>
+  </header>
+  <nav class="tabs" aria-label="Разделы приложения">
+    <button class="tab active" data-tab="menu"><span>🗓️</span>Ближайшие дни</button>
+    <button class="tab" data-tab="week"><span>📅</span>Вся неделя</button>
+    <button class="tab" data-tab="recipes"><span>📖</span>Блюда и рецепты</button>
+    <button class="tab" data-tab="shopping"><span>🛒</span>Покупки</button>
+    <button class="tab" data-tab="settings"><span>⚙️</span>Настройки</button>
+  </nav>
+  <main>
+    <section id="menu" class="panel active">
+      <div class="section-head"><div><h2>Сегодня и завтра</h2><p class="sub">Дни меняются автоматически по календарю. Нажми на ячейку, чтобы выбрать блюдо.</p></div><button id="clearMenu" class="ghost">Очистить меню</button></div>
+      <div class="toolbar"><button id="showFavQuick">⭐ Избранные блюда</button><button id="showAllQuick">Все блюда</button><span class="muted small" style="align-self:center">Завтрак · обед · ужин · перекус</span></div>
+      <div class="week-grid" id="weekGrid"></div>
+      <div class="note">Количество ингредиентов указывается на одно добавление блюда в меню. Если рецепт не заполнен, блюдо всё равно отображается в меню — просто его ингредиенты не попадут в расчёт покупок.</div>
+    </section>
+    <section id="week" class="panel">
+      <div class="section-head"><div><h2>Обзор всей недели</h2><p class="sub">План на понедельник–воскресенье. Нажимай на ячейки, чтобы менять блюда.</p></div><button id="clearWeek" class="ghost">Очистить неделю</button></div>
+      <div class="week-grid" id="fullWeekGrid"></div>
+      <div class="note">Список покупок собирается по всей неделе, а не только по двум ближайшим дням.</div>
+    </section>
+    <section id="recipes" class="panel">
+      <div class="section-head"><div><h2>Блюда и рецепты</h2><p class="sub">Добавляй блюда, отмечай избранное и заполняй состав, когда удобно.</p></div><button class="primary" id="newRecipeBtn">＋ Добавить блюдо</button></div>
+      <div class="toolbar"><input id="recipeSearch" placeholder="Найти блюдо…"><select id="recipeFilter" aria-label="Фильтр категории"><option value="all">Все категории</option><option value="protein">Белок</option><option value="side">Гарнир</option><option value="veg">Овощи</option><option value="snack">Перекус / выпечка</option></select><button id="favFilter" aria-pressed="false">☆ Только избранное</button></div>
+      <div id="recipeList" class="recipe-list"></div>
+      <div class="note">Ингредиенты необязательны. Единицы выбираются отдельно для каждого продукта: штуки, г, кг, мл, л, столовые или чайные ложки. Одинаковые товары в покупках будут суммироваться в совместимых единицах.</div>
+    </section>
+    <section id="shopping" class="panel">
+      <div class="section-head"><div><h2>Список покупок</h2><p class="sub">Автоматически собранные ингредиенты из меню плюс товары, добавленные вручную.</p></div><button id="resetChecks">Снять отметки</button></div>
+      <div id="shoppingList" class="shopping-list"></div>
+      <h3 style="margin:22px 0 8px">Добавить покупку вручную</h3>
+      <form id="manualForm" class="inline-add"><input id="manualName" placeholder="Например, чай" required><input id="manualAmount" type="number" min="0" step="any" placeholder="Кол-во"><select id="manualUnit"><option value="шт.">шт.</option><option value="г">г</option><option value="кг">кг</option><option value="мл">мл</option><option value="л">л</option><option value="ст. л.">ст. л.</option><option value="ч. л.">ч. л.</option><option value="по вкусу">по вкусу</option></select><button class="primary" type="submit">＋ Добавить</button></form>
+      <div class="note">Покупки из рецептов пересчитываются автоматически при изменении меню или состава блюда. Ручные товары остаются в списке независимо от меню.</div>
+    </section>
+    <section id="settings" class="panel">
+      <div class="section-head"><div><h2>Настройки</h2><p class="sub">Данные этого MVP сохраняются локально в текущем браузере.</p></div></div>
+      <div class="card" style="max-width:650px">
+        <h3 style="margin-top:0">Данные приложения</h3><p class="muted">Пока это личная версия на одном устройстве. Общая ссылка-приглашение и синхронизация между двумя людьми потребуют отдельного подключения базы данных и авторизации.</p>
+        <div class="toolbar"><button id="exportData">Экспортировать данные</button><button id="importBtn">Импортировать JSON</button><input type="file" id="importFile" accept="application/json,.json" hidden><button id="resetAll" class="danger">Сбросить все данные</button></div>
+        <p class="small muted">Экспорт можно использовать как резервную копию или перенести данные в другой браузер.</p>
+      </div>
+    </section>
+  </main>
+  <div class="footer">Первая рабочая версия · Данные сохраняются на этом устройстве</div>
+</div>
+
+<div class="modal-backdrop" id="recipeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <div class="modal">
+  <h2 id="modalTitle">Добавить блюдо</h2>
+  <form id="recipeForm">
+   <input id="editId" type="hidden">
+   <div class="form-grid">
+    <div class="field full"><label for="recipeName">Название блюда *</label><input id="recipeName" required placeholder="Например, плов"></div>
+    <div class="field full"><label>Категории (можно выбрать несколько)</label><div class="category-options">
+      <label><input type="checkbox" name="cat" value="protein"> Белок</label><label><input type="checkbox" name="cat" value="side"> Гарнир</label><label><input type="checkbox" name="cat" value="veg"> Овощи</label><label><input type="checkbox" name="cat" value="snack"> Перекус / выпечка</label>
+    </div></div>
+    <div class="field full"><label>Ингредиенты (необязательно)</label><div id="ingredientRows"></div><button type="button" id="addIngredient">＋ Добавить ингредиент</button></div>
+    <div class="field full"><label><span style="display:flex;align-items:center;gap:8px"><input id="recipeFav" type="checkbox"> ⭐ Добавить в избранное</span></label></div>
+   </div>
+   <div class="form-actions"><button type="button" id="cancelRecipe">Отмена</button><button type="submit" class="primary">Сохранить блюдо</button></div>
+  </form>
+ </div>
+</div>
+<div class="modal-backdrop" id="pickModal" role="dialog" aria-modal="true" aria-labelledby="pickTitle">
+ <div class="modal"><h2 id="pickTitle">Выбрать блюдо</h2><div class="toolbar"><button id="pickFav" class="primary">⭐ Избранное</button><button id="pickAll">Все блюда</button><input id="pickSearch" placeholder="Найти блюдо…"></div><div id="pickResults" class="modal-results"></div><div class="form-actions"><button id="cancelPick">Закрыть</button></div></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(() => {
+const KEY='mealPlannerMvp_v1';
+const days=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
+const meals=[{id:'breakfast',name:'Завтрак',zones:[['protein','Белок'],['side','Гарнир'],['veg','Овощи']]},{id:'lunch',name:'Обед',zones:[['protein','Белок'],['side','Гарнир'],['veg','Овощи']]},{id:'dinner',name:'Ужин',zones:[['protein','Белок'],['side','Гарнир'],['veg','Овощи']]},{id:'snack',name:'Перекус / выпечка',zones:[['snack','Блюдо']]}];
+const cats={protein:'Белок',side:'Гарнир',veg:'Овощи',snack:'Перекус / выпечка'};
+const units=['шт.','г','кг','мл','л','ст. л.','ч. л.','по вкусу'];
+const unitOpts=units.map(u=>`<option value="${u}">${u}</option>`).join('');
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initial=()=>({recipes:[
+{id:'r1',name:'Овсяная каша',categories:['side'],favorite:true,ingredients:[{name:'Овсяные хлопья',amount:80,unit:'г'},{name:'Молоко',amount:200,unit:'мл'}]},
+{id:'r2',name:'Курица с рисом',categories:['protein','side'],favorite:true,ingredients:[{name:'Курица',amount:300,unit:'г'},{name:'Рис',amount:150,unit:'г'}]},
+{id:'r3',name:'Овощной салат',categories:['veg'],favorite:false,ingredients:[{name:'Помидор',amount:2,unit:'шт.'},{name:'Огурец',amount:1,unit:'шт.'}]},
+{id:'r4',name:'Сырники',categories:['side','snack'],favorite:true,ingredients:[]},
+{id:'r5',name:'Плов',categories:['protein','side'],favorite:false,ingredients:[{name:'Рис',amount:200,unit:'г'},{name:'Морковь',amount:2,unit:'шт.'},{name:'Курица',amount:250,unit:'г'}]},
+{id:'r6',name:'Яблоко',categories:['snack'],favorite:false,ingredients:[{name:'Яблоко',amount:1,unit:'шт.'}]}
+],menu:{},manual:[],checked:[]});
+let state;
+try{state=JSON.parse(localStorage.getItem(KEY))||initial()}catch{state=initial()}
+state.recipes ||= [];state.menu ||= {};state.manual ||= [];state.checked ||= [];
+let activeTab='menu',favOnly=false,pickFavOnly=true,pickTarget=null;
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('Не удалось сохранить данные в браузере')}}
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.style.display='none',2400)}
+function setTab(tab){activeTab=tab;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===tab));if(tab==='menu')renderMenu();if(tab==='week')renderWeek();if(tab==='recipes')renderRecipes();if(tab==='shopping')renderShopping()}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
+function recipeById(id){return state.recipes.find(r=>r.id===id)}
+function slotKey(d,m,z){return `${d}|${m}|${z}`}
+function mondayIndexNow(){const d=new Date().getDay();return (d+6)%7}
+function dateLabel(offset){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+offset);return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}
+function dayHeader(d){const today=mondayIndexNow();const delta=(d-today+7)%7;const label=days[d];const actual=new Date();actual.setHours(12,0,0,0);actual.setDate(actual.getDate()+delta);return `${label}, ${actual.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}`}
+function renderGrid(rootId,dayIndices){
+ const root=$(rootId);if(!root)return;root.innerHTML='';
+ dayIndices.forEach(d=>{
+  const col=document.createElement('div');col.className='day card';col.innerHTML=`<h3>${dayHeader(d)}</h3>`;
+  meals.forEach(meal=>{
+   const box=document.createElement('div');box.className='meal';box.innerHTML=`<div class="meal-title">${meal.name}</div>`;
+   meal.zones.forEach(([zone,label])=>{
+    const key=slotKey(d,meal.id,zone),id=state.menu[key],r=recipeById(id);
+    const z=document.createElement('div');z.className='zone';
+    z.innerHTML=`<span class="zone-label">${label}</span>`+(r?`<div class="chosen-line"><span class="chosen">${esc(r.name)}</span><button class="tiny" aria-label="Убрать блюдо" title="Убрать" data-remove="${esc(key)}">×</button></div>`:`<button class="pick" data-pick="${esc(key)}">＋ Выбрать</button>`);
+    box.appendChild(z);
+   });
+   col.appendChild(box);
+  });
+  root.appendChild(col);
+ });
+ root.querySelectorAll('[data-pick]').forEach(b=>b.addEventListener('click',()=>openPicker(b.dataset.pick)));
+ root.querySelectorAll('[data-remove]').forEach(b=>b.addEventListener('click',()=>{delete state.menu[b.dataset.remove];save();renderMenu();renderWeek();renderShopping()}));
+}
+function renderMenu(){
+ const t=mondayIndexNow();renderGrid('weekGrid',[t,(t+1)%7]);
+}
+function renderWeek(){renderGrid('fullWeekGrid',[0,1,2,3,4,5,6])}
+function openPicker(key){pickTarget=key;pickFavOnly=true;$('pickSearch').value='';$('pickFav').classList.add('primary');$('pickAll').classList.remove('primary');$('pickModal').classList.add('open');renderPicker()}
+function renderPicker(){
+ const key=pickTarget,parts=key.split('|'),zone=parts[2];
+ const list=state.recipes.filter(r=>r.categories.includes(zone)||(zone==='protein'&&r.categories.includes('protein'))).filter(r=>(!pickFavOnly||r.favorite)&&r.name.toLowerCase().includes($('pickSearch').value.toLowerCase()));
+ $('pickResults').innerHTML=list.length?list.map(r=>`<button class="modal-recipe" data-choose="${r.id}"><span><strong>${esc(r.name)} ${r.favorite?'⭐':''}</strong><small>${r.categories.map(c=>cats[c]).join(' · ')||'Без категории'}${r.ingredients.length?' · '+r.ingredients.length+' ингредиента(ов)':''}</small></span><span>Добавить →</span></button>`).join(''):'<div class="empty">Нет блюд в этом списке. Добавь блюдо во вкладке «Блюда и рецепты» или переключись на «Все блюда».</div>';
+ $('pickResults').querySelectorAll('[data-choose]').forEach(b=>b.addEventListener('click',()=>chooseRecipe(b.dataset.choose)));
+}
+function chooseRecipe(id){
+ const r=recipeById(id);if(!r||!pickTarget)return;
+ const [d,m,z]=pickTarget.split('|');
+ // Multi-category recipes populate every matching zone for this meal.
+ const meal=meals.find(x=>x.id===m);
+ const matches=meal.zones.filter(([zone])=>r.categories.includes(zone));
+ (matches.length?matches:[[z,'']]).forEach(([zone])=>state.menu[slotKey(d,m,zone)]=r.id);
+ $('pickModal').classList.remove('open');save();renderMenu();renderShopping();toast('Блюдо добавлено в меню');
+}
+$('pickFav').addEventListener('click',()=>{pickFavOnly=true;$('pickFav').classList.add('primary');$('pickAll').classList.remove('primary');renderPicker()});
+$('pickAll').addEventListener('click',()=>{pickFavOnly=false;$('pickAll').classList.add('primary');$('pickFav').classList.remove('primary');renderPicker()});
+$('pickSearch').addEventListener('input',renderPicker);$('cancelPick').addEventListener('click',()=>$('pickModal').classList.remove('open'));
+$('showFavQuick').addEventListener('click',()=>{setTab('recipes');favOnly=true;$('favFilter').setAttribute('aria-pressed','true');$('favFilter').textContent='⭐ Только избранное';renderRecipes()});
+$('showAllQuick').addEventListener('click',()=>{setTab('recipes');favOnly=false;$('favFilter').setAttribute('aria-pressed','false');$('favFilter').textContent='☆ Только избранное';renderRecipes()});
+$('clearMenu').addEventListener('click',()=>{if(confirm('Очистить всё недельное меню?')){state.menu={};save();renderMenu();renderShopping()}});
+function renderRecipes(){
+ const query=$('recipeSearch').value.toLowerCase(),cat=$('recipeFilter').value;
+ const list=state.recipes.filter(r=>r.name.toLowerCase().includes(query)&&(cat==='all'||r.categories.includes(cat))&&(!favOnly||r.favorite));
+ $('recipeList').innerHTML=list.length?list.map(r=>`<article class="recipe-card"><div class="recipe-top"><div><h3>${esc(r.name)}</h3><div>${r.categories.map(c=>`<span class="chip">${cats[c]}</span>`).join('')||'<span class="chip">Без категории</span>'}</div></div><button class="star ${r.favorite?'on':''}" data-star="${r.id}" aria-label="Избранное">${r.favorite?'★':'☆'}</button></div><div class="ingredients">${r.ingredients.length?r.ingredients.map(i=>`${esc(i.name)}${i.amount!==''&&i.amount!=null?` — ${esc(i.amount)} ${esc(i.unit)}`:''}`).join('<br>'):'Ингредиенты не добавлены'}</div><div class="recipe-actions"><button data-edit="${r.id}">✎ Редактировать</button><button data-addmenu="${r.id}">＋ В меню</button><button class="danger" data-delete="${r.id}">Удалить</button></div></article>`).join(''):'<div class="empty" style="grid-column:1/-1">Ничего не найдено. Добавь новое блюдо или измени фильтр.</div>';
+ $('recipeList').querySelectorAll('[data-star]').forEach(b=>b.addEventListener('click',()=>{const r=recipeById(b.dataset.star);r.favorite=!r.favorite;save();renderRecipes()}));
+ $('recipeList').querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>openRecipeForm(recipeById(b.dataset.edit))));
+ $('recipeList').querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.delete;if(confirm('Удалить блюдо из каталога и меню?')){state.recipes=state.recipes.filter(r=>r.id!==id);Object.keys(state.menu).forEach(k=>{if(state.menu[k]===id)delete state.menu[k]});save();renderRecipes();renderMenu();renderShopping()}}));
+ $('recipeList').querySelectorAll('[data-addmenu]').forEach(b=>b.addEventListener('click',()=>{const r=recipeById(b.dataset.addmenu);setTab('menu');openPickerForRecipe(r)}));
+}
+$('recipeSearch').addEventListener('input',renderRecipes);$('recipeFilter').addEventListener('change',renderRecipes);
+$('favFilter').addEventListener('click',()=>{favOnly=!favOnly;$('favFilter').setAttribute('aria-pressed',String(favOnly));$('favFilter').textContent=favOnly?'⭐ Только избранное':'☆ Только избранное';renderRecipes()});
+function openPickerForRecipe(r){if(!r)return;const compatible=meals.find(m=>m.zones.some(([z])=>r.categories.includes(z)))||meals[0];pickTarget=slotKey(0,compatible.id,compatible.zones[0][0]);openPicker(pickTarget);$('pickSearch').value=r.name;pickFavOnly=false;$('pickAll').classList.add('primary');$('pickFav').classList.remove('primary');renderPicker()}
+function openRecipeForm(r=null){
+ $('recipeForm').reset();$('ingredientRows').innerHTML='';$('editId').value=r?.id||'';$('modalTitle').textContent=r?'Редактировать блюдо':'Добавить блюдо';$('recipeName').value=r?.name||'';$('recipeFav').checked=!!r?.favorite;
+ document.querySelectorAll('input[name="cat"]').forEach(c=>c.checked=!!r?.categories.includes(c.value));
+ (r?.ingredients?.length?r.ingredients:[{name:'',amount:'',unit:'г'}]).forEach(i=>addIngredientRow(i));
+ $('recipeModal').classList.add('open');
+}
+function addIngredientRow(i={name:'',amount:'',unit:'г'}){
+ const row=document.createElement('div');row.className='ing-row';
+ row.innerHTML=`<div><label>Продукт</label><input class="ing-name" placeholder="Морковь" value="${esc(i.name)}"></div><div><label>Кол-во</label><input class="ing-amount" type="number" min="0" step="any" placeholder="—" value="${i.amount??''}"></div><div><label>Единица</label><select class="ing-unit">${unitOpts}</select></div><button type="button" title="Удалить ингредиент" aria-label="Удалить ингредиент">×</button>`;
+ row.querySelector('.ing-unit').value=units.includes(i.unit)?i.unit:'г';row.querySelector('button').addEventListener('click',()=>row.remove());$('ingredientRows').appendChild(row);
+}
+$('newRecipeBtn').addEventListener('click',()=>openRecipeForm());$('addIngredient').addEventListener('click',()=>addIngredientRow());$('cancelRecipe').addEventListener('click',()=>$('recipeModal').classList.remove('open'));
+$('recipeForm').addEventListener('submit',e=>{
+ e.preventDefault();const name=$('recipeName').value.trim();if(!name)return;
+ const ingredients=[...$('ingredientRows').querySelectorAll('.ing-row')].map(row=>({name:row.querySelector('.ing-name').value.trim(),amount:row.querySelector('.ing-amount').value===''?'':Number(row.querySelector('.ing-amount').value),unit:row.querySelector('.ing-unit').value})).filter(i=>i.name);
+ const catsChosen=[...document.querySelectorAll('input[name="cat"]:checked')].map(c=>c.value);const id=$('editId').value;
+ const obj={id:id||uid(),name,categories:catsChosen,favorite:$('recipeFav').checked,ingredients};
+ if(id){const ix=state.recipes.findIndex(r=>r.id===id);if(ix>=0)state.recipes[ix]=obj}else state.recipes.push(obj);
+ $('recipeModal').classList.remove('open');save();renderRecipes();renderMenu();renderShopping();toast(id?'Блюдо обновлено':'Блюдо добавлено в каталог');
+});
+function normalizeName(n){return n.trim().toLocaleLowerCase('ru').replace(/\s+/g,' ')}
+function convert(amount,unit){
+ if(unit==='кг')return {amount:amount*1000,unit:'г'};if(unit==='л')return {amount:amount*1000,unit:'мл'};return {amount,unit}
+}
+function fmt(n){return Number(n.toFixed(3)).toLocaleString('ru-RU')}
+function aggregate(){
+ const map=new Map();
+ // A complex dish may occupy several zones in one meal; count its ingredients only once for that meal.
+ const placed=new Set();
+ Object.entries(state.menu).forEach(([slot,id])=>{const r=recipeById(id);if(!r)return;const bits=slot.split('|');const placement=`${bits[0]}|${bits[1]}|${id}`;if(placed.has(placement))return;placed.add(placement);r.ingredients.forEach(i=>{
+  if(!i.name)return;const name=i.name.trim(),key=normalizeName(name),q=i.amount;
+  let entry=map.get(key);if(!entry){entry={key,name,amount:0,unit:i.unit||'по вкусу',known:true,hasQuantity:false,source:'recipe'};map.set(key,entry)}
+  const unit=i.unit||'по вкусу';
+  if(q===''||q==null||!Number.isFinite(Number(q))){if(!entry.hasQuantity)entry.known=false;return}
+  const cv=convert(Number(q),unit);
+  if(!entry.hasQuantity){entry.amount=cv.amount;entry.unit=cv.unit;entry.hasQuantity=true;entry.known=true}
+  else if(entry.unit===cv.unit){entry.amount+=cv.amount}
+  else { // Keep incompatible units as separate lines.
+   const otherKey=key+'|'+cv.unit;let other=map.get(otherKey);if(!other){other={key:otherKey,name,amount:cv.amount,unit:cv.unit,known:true,hasQuantity:true,source:'recipe'};map.set(otherKey,other)}else other.amount+=cv.amount;
+  }
+ })});
+ state.manual.forEach(i=>{const key='manual:'+i.id;map.set(key,{key,name:i.name,amount:i.amount,unit:i.unit,known:i.amount!==''&&i.amount!=null,hasQuantity:i.amount!==''&&i.amount!=null,source:'manual',id:i.id})});
+ return [...map.values()].sort((a,b)=>a.name.localeCompare(b.name,'ru'));
+}
+function renderShopping(){
+ const list=aggregate();$('shoppingList').innerHTML=list.length?list.map(i=>{
+  const checked=state.checked.includes(i.key),quantity=i.hasQuantity?`${fmt(i.amount)} ${i.unit}`:(i.known?'Количество не задано':'Количество не указано');
+  return `<div class="shopping-item ${checked?'done':''}"><input type="checkbox" data-check="${esc(i.key)}" ${checked?'checked':''} aria-label="Отметить купленным"><div class="product"><strong>${esc(i.name)}</strong><div class="small muted">${i.source==='manual'?'Добавлено вручную':'Из меню'}</div></div><span class="quantity">${esc(quantity)}</span>${i.source==='manual'?`<button class="tiny danger" data-delmanual="${i.id}" aria-label="Удалить товар">×</button>`:''}</div>`
+ }).join(''):'<div class="empty">Список пока пуст. Запланируй блюда с ингредиентами или добавь покупку вручную.</div>';
+ $('shoppingList').querySelectorAll('[data-check]').forEach(c=>c.addEventListener('change',()=>{const key=c.dataset.check;if(c.checked){if(!state.checked.includes(key))state.checked.push(key)}else state.checked=state.checked.filter(k=>k!==key);save();renderShopping()}));
+ $('shoppingList').querySelectorAll('[data-delmanual]').forEach(b=>b.addEventListener('click',()=>{state.manual=state.manual.filter(i=>i.id!==b.dataset.delmanual);state.checked=state.checked.filter(k=>k!=='manual:'+b.dataset.delmanual);save();renderShopping()}));
+}
+$('manualForm').addEventListener('submit',e=>{e.preventDefault();const name=$('manualName').value.trim();if(!name)return;state.manual.push({id:uid(),name,amount:$('manualAmount').value===''?'':Number($('manualAmount').value),unit:$('manualUnit').value});$('manualForm').reset();save();renderShopping();toast('Покупка добавлена')});
+$('resetChecks').addEventListener('click',()=>{state.checked=[];save();renderShopping()});
+$('clearWeek').addEventListener('click',()=>{if(confirm('Очистить меню на всю неделю?')){state.menu={};save();renderMenu();renderWeek();renderShopping();toast('Меню очищено')}});
+$('clearMenu').addEventListener('click',()=>{if(confirm('Очистить меню на всю неделю?')){state.menu={};save();renderMenu();renderWeek();renderShopping();toast('Меню очищено')}});
+$('exportData').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='nashe-menu-backup.json';a.click();URL.revokeObjectURL(url);toast('Резервная копия подготовлена')});
+$('importBtn').addEventListener('click',()=>$('importFile').click());
+$('importFile').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(!Array.isArray(data.recipes)||!data.menu)throw Error('bad');state={...initial(),...data};save();renderMenu();renderWeek();renderRecipes();renderShopping();toast('Данные импортированы')}catch{toast('Не удалось прочитать файл резервной копии')}e.target.value=''});
+$('resetAll').addEventListener('click',()=>{if(confirm('Удалить все блюда, меню и покупки? Это действие нельзя отменить.')){state=initial();save();renderMenu();renderWeek();renderRecipes();renderShopping();toast('Данные сброшены')}});
+$('recipeModal').addEventListener('click',e=>{if(e.target===$('recipeModal'))$('recipeModal').classList.remove('open')});
+$('pickModal').addEventListener('click',e=>{if(e.target===$('pickModal'))$('pickModal').classList.remove('open')});
+renderMenu();renderWeek();renderRecipes();renderShopping();
+})();
+</script>
+</body>
+</html>
